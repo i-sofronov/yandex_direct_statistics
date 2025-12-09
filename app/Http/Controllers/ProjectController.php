@@ -30,7 +30,7 @@ class ProjectController extends Controller
         ];
 
         $projects = $this->statisticsService->getProjectsStatistics($filters);
-//        dd($projects);
+
         return Inertia::render('projects/index', [
             'initialProjects' => $projects,
             'filters' => $filters
@@ -97,6 +97,8 @@ class ProjectController extends Controller
             'callplace' => $validated['callplace'] ?? 'projects',
         ], now()->addMinutes(10));
 
+        //формируем ссылку на авторизацию яндекса, оттуда перидректимся обратно и получаем токены
+        //важно! нужно, чтобы в вашем приложении яндекс была указана ссылка на редирект на ваше приложение
         $authUrl = $this->authService->getAuthUrl($serviceType, $state);
 
         return redirect()->away($authUrl);

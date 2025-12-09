@@ -32,7 +32,7 @@ class YandexDirectStatisticsService
         return $this->client->getAllTimeStatistics();
     }
 
-    public function testConnection(string $accountAccessToken): bool
+    public function testConnection($accountAccessToken): bool
     {
         try {
             $this->client->setAccessToken($accountAccessToken);

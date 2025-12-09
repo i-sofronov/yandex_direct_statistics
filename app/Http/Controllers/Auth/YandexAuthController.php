@@ -75,6 +75,8 @@ class YandexAuthController extends Controller
 
                 $statisticsCollection = collect($statistics);
 
+                //получаем здесь кампании из статистики, это сделано, чтобы получать товарные кампании, они не приходят по запросу кампаний отдельно
+                //можно сделать и получение сначала кампаний затем по их идентификаторам статистику за период
                 $uniqueCampaignsData = $statisticsCollection->map(function($statistics){
                     return [
                         'id' => $statistics['CampaignId'],
