@@ -1,0 +1,7 @@
+export { default as ArrowIcon} from './ArrowIcon.vue'
+export {default as CalendarIcon} from './CalendarIcon.vue'
+export {default as PlusIcon} from './PlusIcon.vue'
+export { default as ProfileIcon} from './ProfileIcon.vue'
+export {default as ProjectsIcon} from './ProjectsIcon.vue'
+export {default as SearchIcon} from './SearchIcon.vue'
+export {default as EnterIcon} from './EnterIcon.vue'

@@ -49,7 +49,7 @@ class StatisticsService
     {
         [$startDate, $endDate, $prevStart, $prevEnd] = $this->parsePeriodFilters($filters);
 
-        $accountType = $account->account_type;
+        $accountType = $account->type;
 
         $data = match ($accountType) {
             'yandex_direct' => $this->getYandexDirectAccountStatistics($account, $startDate, $endDate, $prevStart, $prevEnd),
@@ -98,7 +98,7 @@ class StatisticsService
         $amount = 0;
 
         foreach ($project->accounts as $account) {
-            switch ($account->account_type) {
+            switch ($account->type) {
                 case 'yandex_direct':
                     $hasDirectAccount = true;
                     $this->processDirectAccountForProject($account, $startDate, $endDate, $prevStart, $prevEnd, $directStats);
@@ -172,14 +172,14 @@ class StatisticsService
         ];
 
         foreach ($accounts as $account) {
-            $accountData = match ($account->account_type) {
+            $accountData = match ($account->type) {
                 'yandex_direct' => $this->processDirectAccountDetailed($account, $startDate, $endDate, $prevStart, $prevEnd),
                 default => null
             };
 
             if ($accountData) {
                 $account->total = $accountData['total'];
-                $groupedAccounts[$account->account_type][] = $account;
+                $groupedAccounts[$account->type][] = $account;
             }
         }
 

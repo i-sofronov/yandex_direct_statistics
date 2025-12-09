@@ -7,7 +7,9 @@ use App\Models\Project;
 use App\Models\ServiceType;
 use App\Models\YandexAccess;
 use App\Models\YandexBusinessCounters;
+use App\Models\YandexDirectCampaign;
 use App\Models\YandexDirectCampaigns;
+use App\Models\YandexDirectStatistic;
 use App\Models\YandexDirectStatistics;
 use App\Services\Auth\YandexAuthService;
 use App\Services\YandexDirectStatisticsService;
@@ -37,8 +39,9 @@ class YandexAuthController extends Controller
         $account = Account::create([
             'project_id' => $stateData['project_id'],
             'name' => $accountData['account_name'],
-            'account_type' => $accountData['service_type'],
-            'amount' => $accountData['amount'] ?? 0
+            'type' => $accountData['service_type'],
+            'amount' => $accountData['amount'] ?? 0,
+            'metadata' => '{}'
         ]);
 
         $accountAccess = YandexAccess::updateOrCreate([
@@ -52,7 +55,7 @@ class YandexAuthController extends Controller
             'refresh_token' => $tokens['refresh_token'],
             'token_expires_at' => now()->addSeconds($tokens['expires_in']),
             'is_active' => true,
-            'metadata' => $tokens
+            'metadata' => json_encode($tokens)
         ]);
 
         $this->fetchInitials($account, $accountAccess);
@@ -67,7 +70,7 @@ class YandexAuthController extends Controller
     private function fetchInitials(Account $account, YandexAccess $access): void
     {
         try {
-            if ($account->account_type === ServiceType::YANDEX_DIRECT->value) {
+            if ($account->type === ServiceType::YANDEX_DIRECT->value) {
                 $statistics = $this->directStatsService->fetchAllTimeStatistics($access->access_token);
 
                 $statisticsCollection = collect($statistics);
@@ -80,7 +83,7 @@ class YandexAuthController extends Controller
                 })->unique('id');
 
                 $uniqueCampaignsData->each(function($data) use ($account){
-                    YandexDirectCampaigns::updateOrCreate(
+                    YandexDirectCampaign::updateOrCreate(
                         [
                             'campaign_id' => (string) $data['id'],
                             'account_id' => $account->id
@@ -116,7 +119,7 @@ class YandexAuthController extends Controller
                     }
 
                     if(!empty($batchData)){
-                        YandexDirectStatistics::insert($batchData);
+                        YandexDirectStatistic::insert($batchData);
                     }
                 });
             }

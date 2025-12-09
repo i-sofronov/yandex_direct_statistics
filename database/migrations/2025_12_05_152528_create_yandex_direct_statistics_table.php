@@ -13,7 +13,30 @@ return new class extends Migration
     {
         Schema::create('yandex_direct_statistics', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('campaign_id');
+
+            $table->date('date');
+            $table->integer('impressions');
+            $table->integer('clicks');
+            $table->float('ctr');
+            $table->float('avg_cpc');
+            $table->float('cost');
+            $table->integer('conversions');
+            $table->float('cost_per_conversion');
+            $table->float('conversion_rate');
+
+            $table->unique(['campaign_id', 'date'], 'unique_campaign_date');
+
+            $table->foreign('campaign_id')
+                ->references('campaign_id')
+                ->on('yandex_direct_campaigns')
+                ->cascadeOnDelete();
+
             $table->timestamps();
+
+            $table->index('date');
+            $table->index(['campaign_id', 'date']);
         });
     }
 

@@ -1,0 +1,184 @@
+/* Reset and base styles  */
+* {
+    padding: 0px;
+    margin: 0px;
+    border: none;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Links */
+
+a, a:link, a:visited  {
+    text-decoration: none;
+}
+
+a:hover  {
+    text-decoration: none;
+}
+
+/* Common */
+
+aside, nav, footer, header, section, main {
+    display: block;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+ul, ul li {
+    list-style: none;
+}
+
+img {
+    vertical-align: top;
+}
+
+img, svg {
+    max-width: 100%;
+    height: auto;
+}
+
+address {
+    font-style: normal;
+}
+
+/* Form */
+
+input, textarea, button, select {
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    background-color: transparent;
+}
+
+input::-ms-clear {
+    display: none;
+}
+
+button, input[type="submit"] {
+    display: inline-block;
+    box-shadow: none;
+    background-color: transparent;
+    background: none;
+    cursor: pointer;
+}
+
+input:focus, input:active,
+button:focus, button:active {
+    outline: none;
+}
+
+button::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+}
+
+label {
+    cursor: pointer;
+}
+
+legend {
+    display: block;
+}
+
+input[type='file'] {
+    max-width: 100%;
+}
+
+body{
+    font-size: 14px;
+    font-weight: 400;
+    font-family: Inter, 'sans-serif';
+    color:#151515;
+}
+
+a{
+    text-decoration: none;
+}
+
+@mixin default-border($border-color: rgba(21, 21, 21, 0.08), $border-radius: 12px){
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+}
+
+._scrollable::-webkit-scrollbar {
+    width: 12px;               /* ширина scrollbar */
+}
+._scrollable::-webkit-scrollbar-track {
+    background: #fff;        /* цвет дорожки */
+}
+._scrollable::-webkit-scrollbar-thumb {
+    background-color: #8d8d8d;    /* цвет плашки */
+    border-radius: 20px;       /* закругления плашки */
+    border: 3px solid #fff;  /* padding вокруг плашки */
+}
+._scrollable::-webkit-scrollbar {
+    width: 12px;               /* ширина scrollbar */
+}
+._scrollable::-webkit-scrollbar-track {
+    background: #fff;        /* цвет дорожки */
+}
+
+
+.btn{
+    outline: none;
+    border: 1px solid;
+    border-radius: 8px;
+    padding: 9px 11px;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+    font-size: 13px;
+    transition: all .3s ease-out;
+    line-height: 1;
+    text-align: center;
+    justify-content: center;
+
+    &.--primary.--outline{
+        background-color: rgba(0,0,0,0);
+        border-color:#151515;
+        color:#151515;
+    }
+
+    &.--primary.--filled{
+        background-color: #151515;
+        border-color:#151515;
+        color:#fff;
+    }
+
+    &.--xxl{
+        padding: 14px 46px;
+    }
+
+    &.--xl{
+        padding: 12px 32px;
+        width: 100%;
+    }
+
+    &.--md{
+        padding: 6px 11px;
+        width: fit-content;
+    }
+
+    &.--rounded{
+        border-radius: 35px;
+    }
+}
+
+.list-settings{
+    margin-left: auto;
+    display: flex;
+    gap: 12px;
+
+    & > *{
+        width: 25px;
+    }
+}

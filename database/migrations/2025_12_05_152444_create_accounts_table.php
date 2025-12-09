@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('project_id')->references('id')->on('projects')->cascadeOnDelete();
+            $table->string('name');
+            $table->enum('type', ['yandex_direct']);
+            $table->json('metadata')->nullable();
+
             $table->timestamps();
         });
     }

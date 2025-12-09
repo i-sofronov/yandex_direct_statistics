@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('yandex_direct_campaigns', function (Blueprint $table) {
             $table->id();
+
+            $table->foreignId('account_id')->references('id')->on('accounts')->cascadeOnDelete();
+            $table->unsignedBigInteger('campaign_id')->unique();
+            $table->string('campaign_name');
+
             $table->timestamps();
         });
     }
